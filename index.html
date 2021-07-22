@@ -2,11 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+  <script src="script.js" defer></script>
   <title>Notes</title>
 </head>
 <body>
-  
+  <h1>Notes</h1>
+  <form id="notes-form">
+    <div id="notes-field" class="field">
+      <label class="label">Enter note here:</label>
+      <div class="control">
+        <input id="note-entry" class="input" type="text" placeholder="Note">
+      </div>
+    </div>
+    <div  class="control">
+      <button id="save-note" class="button is-primary">Save Note</button>
+    </div>
+  </form>
+  <section id="notes">
+    <ul id="notes-list"></ul>
+  </section>
 </body>
 </html>
