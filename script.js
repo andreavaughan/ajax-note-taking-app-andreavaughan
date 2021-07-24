@@ -12,16 +12,17 @@ form.addEventListener('submit', function (e){
     form.reset()
 })
 
-notesList.addEventListener('click', function (e){
-    if (e.target.classList.contains('delete')) {
-        deleteNote(e.target)
-    }
+// notesList.addEventListener('click', function (e){
+//     if (e.target.classList.contains('delete')) {
+//         deleteNote(e.target)
+//     }
 
-    if (e.target.classList.contains('edit')) {
-        updateTodo(e.target)
-        form.reset()
-    }
-})
+//     if (e.target.classList.contains('edit')) {
+//         updateTodo(e.target)
+//         form.reset()
+//     }
+// })
+
 
 function renderNoteItem (noteObj) {
     const noteListItem = document.createElement('li')
@@ -42,12 +43,15 @@ function listNotes() {
     fetch(url)
         .then((response) => response.json())
         .then((data) => {
-            for (let note of notes){
+            console.log(data)
+            for (const note of data){
                 console.log(note)
                 renderNoteItem(note)
             } 
         })
 }
+
+listNotes()
 
 function createNote(noteEntry) {
     fetch(url, {
