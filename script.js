@@ -12,16 +12,16 @@ form.addEventListener('submit', function (e){
     form.reset()
 })
 
-// notesList.addEventListener('click', function (e){
-//     if (e.target.classList.contains('delete')) {
-//         deleteNote(e.target)
-//     }
+notesList.addEventListener('click', function (e){
+    if (e.target.classList.contains('delete')) {
+        deleteNote(e.target)
+    }
 
-//     if (e.target.classList.contains('edit')) {
-//         updateTodo(e.target)
-//         form.reset()
-//     }
-// })
+    if (e.target.classList.contains('edit')) {
+        updateTodo(e.target)
+        form.reset()
+    }
+})
 
 
 function renderNoteItem (noteObj) {
@@ -43,9 +43,7 @@ function listNotes() {
     fetch(url)
         .then((response) => response.json())
         .then((data) => {
-            console.log(data)
             for (const note of data){
-                console.log(note)
                 renderNoteItem(note)
             } 
         })
@@ -63,4 +61,13 @@ function createNote(noteEntry) {
             create_at: moment().format()
         })
     })
+        .then (response => response.json())
+        .then (data => renderNoteItem(data))
+}
+
+function deleteNote(element) {
+    const noteId = element.parentElement.id
+    fetch(url + '/' + `${noteId}`, {
+        method: 'Delete'
+    }).then(() => element.parentElement.remove())
 }
