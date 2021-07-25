@@ -18,10 +18,22 @@ notesList.addEventListener('click', function (event){
         deleteNote(parentListItem)
 
     } if (target.classList.contains('fa-edit')) {
-        let editInputField = document.createElement('input')
-        parentListItem.appendChild(editInputField) //create template literal for new input and update button
-        updateNote(target) //remove this fn from here, move to a new event listener for the new update button
-        form.reset()
+        
+        // const inputEditForm = 
+        // parentListItem.append(inputEditForm)
+        
+        parentListItem.innerHTML = parentListItem.innerHTML + `<form id="edit-form">
+        <div id="edit-field" class="field">
+        <div class="control">
+        <textarea id="note-entry" class="input" type="text"></textarea>
+        </div>
+        </div>
+        <div  class="control">
+        <button id="update" class="button is-link">Save Edit</button>
+        </div>
+        </form>`
+
+        //updateNote(target) //remove this fn from here, move to a new event listener for the new update button
     }
 })
 
