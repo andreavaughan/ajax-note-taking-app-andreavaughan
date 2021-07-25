@@ -12,13 +12,15 @@ form.addEventListener('submit', function (e){
     form.reset()
 })
 
-notesList.addEventListener('click', function (e){
-    if (e.target.classList.contains('delete')) {
-        deleteNote(e.target)
-    }
+notesList.addEventListener('click', function (event){
+    let target = event.target
+    let parentListItem = target.parentElement.parentElement.parentElement
+    if (target.classList.contains('delete')) {
+        //console.log(parentListItem)
+        deleteNote(parentListItem)
 
-    if (e.target.classList.contains('fa-edit')) {
-        updateNote(e.target)
+    } if (event.target.classList.contains('fa-edit')) {
+        updateNote(event.target)
         form.reset()
     }
 })
@@ -35,7 +37,7 @@ function renderNoteItem (noteObj) {
 
 function renderNoteText (noteTextItem, noteObj) {
     console.log(noteObj)
-    noteTextItem.innerHTML = `<span class="content test-class">${noteObj.body}</span><span class="icon"><i class="delete"></i></span><span class="icon"><i class="fas fa-edit"></i></span>`
+    noteTextItem.innerHTML = `<span class="content test-class">${noteObj.body}</span><button class="button"><span class="icon"><i class="delete"></i></span></button><button class="button"><span class="icon"><i class="fas fa-edit"></i></span></button>`
 }
 
 
@@ -65,15 +67,17 @@ function createNote(noteEntry) {
         .then (data => renderNoteItem(data))
 }
 
-const noteId = element.parentElement.id
+
 
 function deleteNote(element) {
+    const noteId = element.id
     fetch(url + '/' + `${noteId}`, {
         method: 'Delete'
-    }).then(() => element.parentElement.remove())
+    }).then(() => element.remove())
 }
 
 function updateNote (element) {
+    const noteId = element.parentElement.id
     const noteText = document.getElementById('note-entry').value
     fetch(url + '/' + `${noteId}`, {
         method: 'PUT',
