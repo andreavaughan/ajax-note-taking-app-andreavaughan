@@ -1,31 +1,32 @@
 const url = 'http://localhost:3000/notes'
 const form = document.getElementById('notes-form')
 const notesList = document.getElementById('notes-list')
+const noteItem = document.querySelector('note-item')
+
 
 //Event Listeners
 
-form.addEventListener('submit', function (e){
-    e.preventDefault()
+form.addEventListener('submit', function (event){
+    console.log('something')
+    event.preventDefault()
     const noteEntry = document.getElementById('note-entry').value
     createNote(noteEntry)
     form.reset()
 })
 
 notesList.addEventListener('click', function (event){
+    event.preventDefault()
     let target = event.target
     let parentListItem = target.parentElement.parentElement.parentElement
+    console.log(target)
     if (target.classList.contains('delete')) {
         deleteNote(parentListItem)
 
     } if (target.classList.contains('fa-edit')) {
-        
-        // const inputEditForm = 
-        // parentListItem.append(inputEditForm)
-        
         parentListItem.innerHTML = parentListItem.innerHTML + `<form id="edit-form">
         <div id="edit-field" class="field">
         <div class="control">
-        <textarea id="note-entry" class="input" type="text"></textarea>
+        <textarea id="edited-entry" class="input" type="text"></textarea>
         </div>
         </div>
         <div  class="control">
@@ -34,8 +35,11 @@ notesList.addEventListener('click', function (event){
         </form>`
 
         //updateNote(target) //remove this fn from here, move to a new event listener for the new update button
+    } if (target.classList.contains('is-link')) {
+        updateNote(target)
     }
 })
+
 
 
 function renderNoteItem (noteObj) {
@@ -43,12 +47,10 @@ function renderNoteItem (noteObj) {
     noteListItem.id = noteObj.id
     noteListItem.classList.add('note-item')
     renderNoteText(noteListItem, noteObj)
-    console.log(noteListItem)
     notesList.appendChild(noteListItem)
 }
 
 function renderNoteText (noteTextItem, noteObj) {
-    console.log(noteObj)
     noteTextItem.innerHTML = `<span class="content test-class">${noteObj.body}</span><button class="button"><span class="icon"><i class="delete"></i></span></button><button class="button"><span class="icon"><i class="fas fa-edit"></i></span></button>`
 }
 
@@ -90,8 +92,9 @@ function deleteNote(element) {
 function updateNote (element) {
     const listItemElement = element.parentElement.parentElement.parentElement
     const noteId = listItemElement.id
+    
     console.log(noteId)
-    const noteText = document.getElementById('note-entry').value
+    const noteText = document.getElementById('edited-entry').value
     console.log(noteText)
     fetch(url + '/' + `${noteId}`, {
         method: 'PUT',
