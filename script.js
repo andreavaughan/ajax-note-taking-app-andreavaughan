@@ -15,13 +15,12 @@ notesList.addEventListener('click', function (event){
     let target = event.target
     let parentListItem = target.parentElement.parentElement.parentElement
     if (target.classList.contains('delete')) {
-        //console.log(parentListItem)
         deleteNote(parentListItem)
 
     } if (target.classList.contains('fa-edit')) {
-        let editInputField = document.createElement()
-        parentListItem.appendChild
-        updateNote(target)
+        let editInputField = document.createElement('input')
+        parentListItem.appendChild(editInputField) //create template literal for new input and update button
+        updateNote(target) //remove this fn from here, move to a new event listener for the new update button
         form.reset()
     }
 })
