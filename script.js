@@ -7,7 +7,6 @@ const notesList = document.getElementById('notes-list')
 form.addEventListener('submit', function (e){
     e.preventDefault()
     const noteEntry = document.getElementById('note-entry').value
-    console.log(noteEntry)
     createNote(noteEntry)
     form.reset()
 })
@@ -19,8 +18,10 @@ notesList.addEventListener('click', function (event){
         //console.log(parentListItem)
         deleteNote(parentListItem)
 
-    } if (event.target.classList.contains('fa-edit')) {
-        updateNote(event.target)
+    } if (target.classList.contains('fa-edit')) {
+        let editInputField = document.createElement()
+        parentListItem.appendChild
+        updateNote(target)
         form.reset()
     }
 })
@@ -68,7 +69,6 @@ function createNote(noteEntry) {
 }
 
 
-
 function deleteNote(element) {
     const noteId = element.id
     fetch(url + '/' + `${noteId}`, {
@@ -77,8 +77,11 @@ function deleteNote(element) {
 }
 
 function updateNote (element) {
-    const noteId = element.parentElement.id
+    const listItemElement = element.parentElement.parentElement.parentElement
+    const noteId = listItemElement.id
+    console.log(noteId)
     const noteText = document.getElementById('note-entry').value
+    console.log(noteText)
     fetch(url + '/' + `${noteId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' }, 
@@ -93,6 +96,6 @@ function updateNote (element) {
         })
         .then((data) => {
             console.log(data)
-            renderNoteText(element.parentElement, data)
+            renderNoteText(listItemElement, data)
         })
 }
