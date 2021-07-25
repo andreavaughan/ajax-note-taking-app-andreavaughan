@@ -7,7 +7,6 @@ const noteItem = document.querySelector('note-item')
 //Event Listeners
 
 form.addEventListener('submit', function (event){
-    console.log('something')
     event.preventDefault()
     const noteEntry = document.getElementById('note-entry').value
     createNote(noteEntry)
@@ -23,23 +22,32 @@ notesList.addEventListener('click', function (event){
         deleteNote(parentListItem)
 
     } if (target.classList.contains('fa-edit')) {
-        parentListItem.innerHTML = parentListItem.innerHTML + `<form id="edit-form">
+        fetch (url)
+            .then((response) => response.json())
+            .then((data) => {
+                let listId = parentListItem.id
+                console.log(data)
+                console.log(listId)
+                for (let note of data){
+                    if (String(listId) === String(note.id)){
+                        parentListItem.innerHTML = parentListItem.innerHTML + `<form id="edit-form">
         <div id="edit-field" class="field">
         <div class="control">
-        <textarea id="edited-entry" class="input" type="text"></textarea>
+        <textarea id="edited-entry" class="input" type="text">${note.body}</textarea>
         </div>
         </div>
         <div  class="control">
         <button id="update" class="button is-link">Save Edit</button>
         </div>
         </form>`
+                    }
+                }
+            })
 
-        //updateNote(target) //remove this fn from here, move to a new event listener for the new update button
     } if (target.classList.contains('is-link')) {
         updateNote(target)
     }
 })
-
 
 
 function renderNoteItem (noteObj) {
@@ -53,7 +61,6 @@ function renderNoteItem (noteObj) {
 function renderNoteText (noteTextItem, noteObj) {
     noteTextItem.innerHTML = `<span class="content test-class">${noteObj.body}</span><button class="button"><span class="icon"><i class="delete"></i></span></button><button class="button"><span class="icon"><i class="fas fa-edit"></i></span></button>`
 }
-
 
 function listNotes() {
     fetch(url)
