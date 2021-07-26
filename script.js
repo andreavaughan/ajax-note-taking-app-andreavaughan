@@ -40,6 +40,7 @@ notesList.addEventListener('click', function (event){
                         <div class="edit-buttons">
                         <button id="update" class="button is-link">Save Edit</button>
                         <button id="discard" class="button is-warning">Discard Edit</button>
+                        <button id="delete-large" class="button is-danger">Delete Note</button>
                         </div>
                         </form>`
                     }
@@ -52,6 +53,10 @@ notesList.addEventListener('click', function (event){
     } if(target.classList.contains('is-warning')) {
         console.log(parentListItem)
         parentListItem.remove()
+
+    } if (target.classList.contains('is-danger')) {
+        let buttonParentListItem = parentListItem.parentElement
+        deleteNote(buttonParentListItem)
     }
 
 })
