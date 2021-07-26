@@ -6,6 +6,8 @@ const noteItem = document.querySelector('note-item')
 
 //Event Listeners
 
+//Sends input to json database when submitted, and clears form
+
 form.addEventListener('submit', function (event){
     event.preventDefault()
     const noteEntry = document.getElementById('note-entry').value
@@ -13,15 +15,19 @@ form.addEventListener('submit', function (event){
     form.reset()
 })
 
+//Updates page based on which button on the page is clicked
+
 notesList.addEventListener('click', function (event){
     event.preventDefault()
     let target = event.target
     let parentListItem = target.parentElement.parentElement.parentElement.parentElement
 
+    //Deletes note when 1 of 2 buttons are clicked: "x" icon next to unedited note line, or from the "Delete" button in the note editor
     console.log(target)
     if (target.classList.contains('delete') || target.classList.contains('is-danger')) {
         deleteNote(parentListItem)
 
+    //Opens editor input when "edit" icon is clicked; line display is switched to none
     } if (target.classList.contains('fa-edit')) {
         fetch (url)
             .then((response) => response.json())
@@ -52,19 +58,28 @@ notesList.addEventListener('click', function (event){
                 console.log(spanToToggle)
                 spanToToggle.style.display = "none"
             })
-
+    
+    //Updates note displayed 
     } if (target.classList.contains('is-link')) {
         updateNote(target)
 
+    //Discards edit changes but keeps original note data
     } if(target.classList.contains('is-warning')) {
         let parentButtonItem = target.parentElement.parentElement.parentElement
         console.log(parentButtonItem)
         parentButtonItem.remove()
 
+        //code to reset the list element's display to block
+        let parentId = parentListItem.id
+        console.log(parentId)
+        let hiddenId = 'span' + String(parentId)
+        let hiddenSpan = document.getElementById(hiddenId)
+        console.log(hiddenSpan)
+        hiddenSpan.style.display = "block"
     }
-
 })
 
+// functions to render note objects on page 
 
 function renderNoteItem (noteObj) {
     const noteListItem = document.createElement('li')
@@ -79,6 +94,8 @@ function renderNoteText (noteTextItem, noteObj) {
     noteTextItem.innerHTML = `<span id="${insertedId}"><span class="content test-class">${noteObj.body}</span><button class="button"><span class="icon"><i class="delete"></i></span></button><button class="button"><span class="icon"><i class="fas fa-edit"></i></span></button></span>`
 }
 
+//CRUD functions
+
 function listNotes() {
     fetch(url)
         .then((response) => response.json())
@@ -89,7 +106,8 @@ function listNotes() {
         })
 }
 
-listNotes()
+listNotes() //don't forget to call this function to display!
+
 
 function createNote(noteEntry) {
     fetch(url, {
