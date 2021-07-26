@@ -84,14 +84,14 @@ notesList.addEventListener('click', function (event){
 function renderNoteItem (noteObj) {
     const noteListItem = document.createElement('li')
     noteListItem.id = noteObj.id
-    noteListItem.classList.add('note-item')
+    noteListItem.classList.add('card')
     renderNoteText(noteListItem, noteObj)
     notesList.appendChild(noteListItem)
 }
 
 function renderNoteText (noteTextItem, noteObj) {
     let insertedId = 'span' + String(noteObj.id)
-    noteTextItem.innerHTML = `<span id="${insertedId}"><span class="content test-class">${noteObj.body}</span><button class="button"><span class="icon"><i class="delete"></i></span></button><button class="button"><span class="icon"><i class="fas fa-edit"></i></span></button></span>`
+    noteTextItem.innerHTML = `<span id="${insertedId} class="card-content"><span class="content test-class">${noteObj.body}</span><button class="button"><span class="icon"><i class="delete"></i></span></button><button class="button"><span class="icon"><i class="fas fa-edit"></i></span></button></span>`
 }
 
 //CRUD functions
