@@ -17,6 +17,7 @@ notesList.addEventListener('click', function (event){
     event.preventDefault()
     let target = event.target
     let parentListItem = target.parentElement.parentElement.parentElement.parentElement
+
     console.log(target)
     if (target.classList.contains('delete') || target.classList.contains('is-danger')) {
         deleteNote(parentListItem)
@@ -44,7 +45,12 @@ notesList.addEventListener('click', function (event){
                         </div>
                         </form>`
                     }
-                }
+                } 
+                let spanIdToToggle = 'span' + String(listId)
+                console.log(spanIdToToggle)
+                let spanToToggle = document.getElementById(spanIdToToggle)
+                console.log(spanToToggle)
+                spanToToggle.style.display = "none"
             })
 
     } if (target.classList.contains('is-link')) {
@@ -69,7 +75,8 @@ function renderNoteItem (noteObj) {
 }
 
 function renderNoteText (noteTextItem, noteObj) {
-    noteTextItem.innerHTML = `<span><span class="content test-class">${noteObj.body}</span><button class="button"><span class="icon"><i class="delete"></i></span></button><button class="button"><span class="icon"><i class="fas fa-edit"></i></span></button></span>`
+    let insertedId = 'span' + String(noteObj.id)
+    noteTextItem.innerHTML = `<span id="${insertedId}"><span class="content test-class">${noteObj.body}</span><button class="button"><span class="icon"><i class="delete"></i></span></button><button class="button"><span class="icon"><i class="fas fa-edit"></i></span></button></span>`
 }
 
 function listNotes() {
