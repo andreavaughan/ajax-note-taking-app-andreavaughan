@@ -31,22 +31,29 @@ notesList.addEventListener('click', function (event){
                 for (let note of data){
                     if (String(listId) === String(note.id)){
                         parentListItem.innerHTML = parentListItem.innerHTML + `<form id="edit-form">
-        <div id="edit-field" class="field">
-        <div class="control">
-        <textarea id="edited-entry" class="input" type="text">${note.body}</textarea>
-        </div>
-        </div>
-        <div  class="control">
-        <button id="update" class="button is-link">Save Edit</button>
-        </div>
-        </form>`
+                        <div id="edit-field" class="field">
+                        <div class="control">
+                        <textarea id="edited-entry" class="input" type="text">${note.body}</textarea>
+                        </div>
+                        </div>
+                        <div  class="control">
+                        <div class="edit-buttons">
+                        <button id="update" class="button is-link">Save Edit</button>
+                        <button id="discard" class="button is-warning">Discard Edit</button>
+                        </div>
+                        </form>`
                     }
                 }
             })
 
     } if (target.classList.contains('is-link')) {
         updateNote(target)
+
+    } if(target.classList.contains('is-warning')) {
+        console.log(parentListItem)
+        parentListItem.remove()
     }
+
 })
 
 
