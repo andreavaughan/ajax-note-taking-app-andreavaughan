@@ -16,9 +16,9 @@ form.addEventListener('submit', function (event){
 notesList.addEventListener('click', function (event){
     event.preventDefault()
     let target = event.target
-    let parentListItem = target.parentElement.parentElement.parentElement
+    let parentListItem = target.parentElement.parentElement.parentElement.parentElement
     console.log(target)
-    if (target.classList.contains('delete')) {
+    if (target.classList.contains('delete') || target.classList.contains('is-danger')) {
         deleteNote(parentListItem)
 
     } if (target.classList.contains('fa-edit')) {
@@ -51,12 +51,10 @@ notesList.addEventListener('click', function (event){
         updateNote(target)
 
     } if(target.classList.contains('is-warning')) {
-        console.log(parentListItem)
-        parentListItem.remove()
+        let parentButtonItem = target.parentElement.parentElement.parentElement
+        console.log(parentButtonItem)
+        parentButtonItem.remove()
 
-    } if (target.classList.contains('is-danger')) {
-        let buttonParentListItem = parentListItem.parentElement
-        deleteNote(buttonParentListItem)
     }
 
 })
@@ -71,7 +69,7 @@ function renderNoteItem (noteObj) {
 }
 
 function renderNoteText (noteTextItem, noteObj) {
-    noteTextItem.innerHTML = `<span class="content test-class">${noteObj.body}</span><button class="button"><span class="icon"><i class="delete"></i></span></button><button class="button"><span class="icon"><i class="fas fa-edit"></i></span></button>`
+    noteTextItem.innerHTML = `<span><span class="content test-class">${noteObj.body}</span><button class="button"><span class="icon"><i class="delete"></i></span></button><button class="button"><span class="icon"><i class="fas fa-edit"></i></span></button></span>`
 }
 
 function listNotes() {
@@ -109,7 +107,7 @@ function deleteNote(element) {
 }
 
 function updateNote (element) {
-    const listItemElement = element.parentElement.parentElement.parentElement
+    const listItemElement = element.parentElement.parentElement.parentElement.parentElement
     const noteId = listItemElement.id
     
     console.log(noteId)
