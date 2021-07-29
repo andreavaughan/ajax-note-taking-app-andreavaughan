@@ -33,8 +33,6 @@ notesList.addEventListener('click', function (event){
             .then((response) => response.json())
             .then((data) => {
                 let listId = parentListItem.id
-                console.log(data)
-                console.log(listId)
                 for (let note of data){
                     if (String(listId) === String(note.id)){
                         parentListItem.innerHTML = parentListItem.innerHTML + `<form id="edit-form">
@@ -51,11 +49,8 @@ notesList.addEventListener('click', function (event){
                         </div>
                         </form>`
                     }
-                } 
-                let spanIdToToggle = 'span' + String(listId)
-                console.log(spanIdToToggle)
+                } let spanIdToToggle = 'span' + String(listId)
                 let spanToToggle = document.getElementById(spanIdToToggle)
-                console.log(spanToToggle)
                 spanToToggle.style.display = "none"
             })
     
@@ -66,15 +61,12 @@ notesList.addEventListener('click', function (event){
     //Discards edit changes but keeps original note data
     } if(target.classList.contains('is-warning')) {
         let parentButtonItem = target.parentElement.parentElement.parentElement
-        console.log(parentButtonItem)
         parentButtonItem.remove()
 
         //code to reset the list element's display to block
         let parentId = parentListItem.id
-        console.log(parentId)
         let hiddenId = 'span' + String(parentId)
         let hiddenSpan = document.getElementById(hiddenId)
-        console.log(hiddenSpan)
         hiddenSpan.style.display = ""
     }
 })
