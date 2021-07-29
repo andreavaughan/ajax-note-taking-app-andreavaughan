@@ -75,14 +75,14 @@ notesList.addEventListener('click', function (event){
         let hiddenId = 'span' + String(parentId)
         let hiddenSpan = document.getElementById(hiddenId)
         console.log(hiddenSpan)
-        hiddenSpan.style.display = "block"
+        hiddenSpan.style.display = ""
     }
 })
 
 // functions to render note objects on page 
 
 function renderNoteItem (noteObj) {
-    const noteListItem = document.createElement('li')
+    const noteListItem = document.createElement('div')
     noteListItem.id = noteObj.id
     noteListItem.classList.add('card')
     renderNoteText(noteListItem, noteObj)
