@@ -24,7 +24,7 @@ notesList.addEventListener('click', function (event){
 
     //Deletes note when 1 of 2 buttons are clicked: "x" icon next to unedited note line, or from the "Delete" button in the note editor
     console.log(target)
-    if (target.classList.contains('delete') || target.classList.contains('is-danger')) {
+    if (target.classList.contains('fa-trash') || target.classList.contains('is-danger')) {
         deleteNote(parentListItem)
 
     //Opens editor input when "edit" icon is clicked; line display is switched to none
@@ -91,7 +91,7 @@ function renderNoteItem (noteObj) {
 
 function renderNoteText (noteTextItem, noteObj) {
     let insertedId = 'span' + String(noteObj.id)
-    noteTextItem.innerHTML = `<span id="${insertedId} class="card-content"><span class="content test-class">${noteObj.body}</span><button class="button"><span class="icon"><i class="delete"></i></span></button><button class="button"><span class="icon"><i class="fas fa-edit"></i></span></button></span>`
+    noteTextItem.innerHTML = `<span id="${insertedId} class="card-content"><span class="content test-class">${noteObj.body}</span><button class="button"><span class="icon"><i class="fas fa-trash"></i></span></button><button class="button"><span class="icon"><i class="fas fa-edit"></i></span></button></span>`
 }
 
 //CRUD functions
@@ -125,6 +125,7 @@ function createNote(noteEntry) {
 
 
 function deleteNote(element) {
+    console.log(element)
     const noteId = element.id
     fetch(url + '/' + `${noteId}`, {
         method: 'Delete'

@@ -6,14 +6,16 @@ body {
     color: blueviolet;
 }
 
-.notes-cards {
+.notes-list {
     display: flex;
     flex-flow: row wrap;
 
 }
 
 .card {
-    margin: 3em;
+    display: flex;
+    
+    margin: 1.5em;
     padding: 2.5em;
 }
 
