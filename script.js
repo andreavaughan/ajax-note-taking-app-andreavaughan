@@ -91,7 +91,7 @@ function renderNoteItem (noteObj) {
 
 function renderNoteText (noteTextItem, noteObj) {
     let insertedId = 'span' + String(noteObj.id)
-    noteTextItem.innerHTML = `<span id="${insertedId} class="card-content"><span class="content test-class">${noteObj.body}</span><button class="button"><span class="icon"><i class="fas fa-trash"></i></span></button><button class="button"><span class="icon"><i class="fas fa-edit"></i></span></button></span>`
+    noteTextItem.innerHTML = `<span id="${insertedId}" class="card-content"><span class="content test-class">${noteObj.body}</span><button class="button"><span class="icon"><i class="fas fa-trash"></i></span></button><button class="button"><span class="icon"><i class="fas fa-edit"></i></span></button></span>`
 }
 
 //CRUD functions
