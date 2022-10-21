@@ -20,10 +20,9 @@ form.addEventListener('submit', function (event){
 notesList.addEventListener('click', function (event){
     event.preventDefault()
     let target = event.target
-    let parentListItem = target.parentElement.parentElement.parentElement.parentElement
+    let parentListItem = target.closest('.card')
 
     //Deletes note when 1 of 2 buttons are clicked: "x" icon next to unedited note line, or from the "Delete" button in the note editor
-    console.log(target)
     if (target.classList.contains('fa-trash') || target.classList.contains('is-danger')) {
         deleteNote(parentListItem)
 
@@ -35,7 +34,7 @@ notesList.addEventListener('click', function (event){
                 let listId = parentListItem.id
                 for (let note of data){
                     if (String(listId) === String(note.id)){
-                        parentListItem.innerHTML = parentListItem.innerHTML + `<form id="edit-form">
+                        parentListItem.innerHTML = parentListItem.innerHTML + `<form id="edit-form-${listId}" class="edit-form">
                         <div id="edit-field" class="field">
                         <div class="control">
                         <textarea id="edited-entry" class="input" type="text">${note.body}</textarea>
@@ -60,7 +59,8 @@ notesList.addEventListener('click', function (event){
 
     //Discards edit changes but keeps original note data
     } if(target.classList.contains('is-warning')) {
-        let parentButtonItem = target.parentElement.parentElement.parentElement
+        let parentButtonItem = target.closest('.edit-form')
+
         parentButtonItem.remove()
 
         //code to reset the list element's display to block
@@ -117,7 +117,6 @@ function createNote(noteEntry) {
 
 
 function deleteNote(element) {
-    console.log(element)
     const noteId = element.id
     fetch(url + '/' + `${noteId}`, {
         method: 'Delete'
@@ -125,12 +124,10 @@ function deleteNote(element) {
 }
 
 function updateNote (element) {
-    const listItemElement = element.parentElement.parentElement.parentElement.parentElement
+    const listItemElement = element.closest('.card')
     const noteId = listItemElement.id
     
-    console.log(noteId)
     const noteText = document.getElementById('edited-entry').value
-    console.log(noteText)
     fetch(url + '/' + `${noteId}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' }, 
@@ -144,7 +141,6 @@ function updateNote (element) {
             return response.json()
         })
         .then((data) => {
-            console.log(data)
             renderNoteText(listItemElement, data)
         })
 }
